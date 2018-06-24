@@ -1,18 +1,59 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+//material-ui
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+
 class App extends Component {
+  state = {
+    city: '',
+  };
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <AppBar position="static" color="primary">
+          <Toolbar>
+            <Typography variant="title" color="inherit">
+              Find the nearest blood bank!
+            </Typography>
+          </Toolbar>
+        </AppBar>
+       </div>
+        <div className="inputContainer">
+          <div className="textContainer">
+              <TextField
+                id="city"
+                label="City"
+                placeholder="type in City! eg. Delhi"
+                value={this.state.city}
+                margin="normal"
+                onChange={this.handleChange('city')}
+              />
+             <Button  color="primary" > 
+                  Search 
+            </Button>
+              
+          </div>
+          <span className="divider" >or</span>
+          <div>
+            <Button variant="contained" color="primary" > 
+                    Search with current location
+            </Button>
+          </div>
+        </div>
+        
       </div>
     );
   }
