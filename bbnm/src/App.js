@@ -8,6 +8,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
+//react router
+import { Route, Link } from 'react-router-dom';
+
+import DataTable from './DataTable';
+
 class App extends Component {
   state = {
     city: '',
@@ -18,11 +23,13 @@ class App extends Component {
       [name]: event.target.value,
     });
   };
+  
 
   render() {
     return (
       <div className="App">
       <div>
+      
         <AppBar position="static" color="primary">
           <Toolbar>
             <Typography variant="title" color="inherit">
@@ -41,9 +48,12 @@ class App extends Component {
                 margin="normal"
                 onChange={this.handleChange('city')}
               />
-             <Button  color="primary" > 
+              <Link to={`/DataTable`}>
+                <Button color="primary" > 
                   Search 
-            </Button>
+                </Button>
+              </Link>
+              
               
           </div>
           <span className="divider" >or</span>
@@ -51,9 +61,15 @@ class App extends Component {
             <Button variant="contained" color="primary" > 
                     Search with current location
             </Button>
+            
           </div>
         </div>
-        
+        <Route
+          path="/DataTable"
+          render={props => (
+            <DataTable {...props} />
+          )}
+        />
       </div>
     );
   }
