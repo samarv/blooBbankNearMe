@@ -7,6 +7,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+
+import { Route, Link } from 'react-router-dom';
+
 //firebase
 import firebase from 'firebase/app';
 import 'firebase/database';
@@ -52,6 +60,18 @@ export default class DataTable extends Component {
   render() {
     return (
       <div>
+        <div>
+        
+        <AppBar position="static" color="primary">
+          <Toolbar>
+          <Link to={`/`}>
+            <Button color="default">
+              Back
+            </Button>
+            </Link>
+          </Toolbar>
+        </AppBar>
+       </div>
          <Paper >
       <Table >
         <TableHead>

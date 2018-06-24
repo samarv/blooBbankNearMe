@@ -12,6 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import { Route, Link } from 'react-router-dom';
 
 import DataTable from './DataTable';
+import InputSearch from './InputSearch';
 
 class App extends Component {
   state = {
@@ -23,55 +24,23 @@ class App extends Component {
       [name]: event.target.value,
     });
   };
-  
-
   render() {
-    return (
-      <div className="App">
+    return(
       <div>
-      
-        <AppBar position="static" color="primary">
-          <Toolbar>
-            <Typography variant="title" color="inherit">
-              Find the nearest blood bank!
-            </Typography>
-          </Toolbar>
-        </AppBar>
-       </div>
-        <div className="inputContainer">
-          <div className="textContainer">
-              <TextField
-                id="city"
-                label="City"
-                placeholder="type in City! eg. Delhi"
-                value={this.state.city}
-                margin="normal"
-                onChange={this.handleChange('city')}
-              />
-              <Link to={`/DataTable`}>
-                <Button color="primary" > 
-                  Search 
-                </Button>
-              </Link>
-              
-              
-          {/* </div>
-          <span className="divider" >or</span>
-          <div>
-            <Button variant="contained" color="primary" > 
-                    Search with current location
-            </Button> */}
-            
-          </div>
-        </div>
+        <Route 
+            exact path="/"
+            render={props => (
+              <InputSearch {...props} city={this.state.city} handleChange={this.handleChange}/>
+            )}
+          />
         <Route
-          path="/DataTable"
-          render={props => (
-            <DataTable {...props} city={this.state.city}/>
-          )}
-        />
-      </div>
-    );
+            path="/DataTable"
+            render={props => (
+              <DataTable {...props} city={this.state.city} handleChange={this.handleChange}/>
+            )}
+          />
+      </div> 
+    )
   }
 }
 
