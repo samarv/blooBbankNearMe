@@ -12,23 +12,6 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 
 
-
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
-}
-
-
-
-const data = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 var config = {
     apiKey: "AIzaSyBe9kavmQkn8IPtKEazGtSES79RAiDJ0zc",
     authDomain: "nametag-4b040.firebaseapp.com",
@@ -55,11 +38,7 @@ export default class DataTable extends Component {
 
     fetch(){
         var that = this;
-        database.ref('/records/').orderByChild("__city").equalTo("Delhi").once('value').then(function(snapshot) {
-            var username = (snapshot.val()) || 'Anonymous';
-            console.log("un", username)
-            console.log("snapshot", snapshot.val())
-            console.log(Object.entries(snapshot.val())[0]);
+        database.ref('/records/').orderByChild("__city").equalTo(`${this.props.city}`).once('value').then(function(snapshot) {
             that.setState({
                 snapshot: Object.entries(snapshot.val()),
             })
@@ -67,7 +46,6 @@ export default class DataTable extends Component {
     }
 
     componentDidMount(){
-        
         this.fetch()
         console.log(this.state.snapshot)
     }
@@ -108,6 +86,7 @@ export default class DataTable extends Component {
                 } */}
                 {this.state.snapshot.map(n => {
                     let bbi = n["1"]
+                    {console.log(bbi)}
                     return (
                         <TableRow key={n["0"]}>
                             <TableCell component="th" scope="row">
@@ -115,7 +94,9 @@ export default class DataTable extends Component {
                             </TableCell>
                             <TableCell numeric>{bbi.__address}</TableCell>
                             <TableCell numeric>{bbi.__category}</TableCell>
-                            <TableCell numeric>{bbi.carbs}</TableCell>
+                            <TableCell numeric>
+                                <a href={`https://www.google.com/maps/search/?api=1&query=${bbi.__latitude},${bbi.__longitude}`}>map</a>
+                            </TableCell>
                             <TableCell numeric>{bbi.__state}</TableCell>
                             <TableCell numeric>{bbi.__city}</TableCell>
                             <TableCell numeric>{bbi.__nodal_officer_}</TableCell>

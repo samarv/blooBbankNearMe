@@ -55,19 +55,19 @@ class App extends Component {
               </Link>
               
               
-          </div>
+          {/* </div>
           <span className="divider" >or</span>
           <div>
             <Button variant="contained" color="primary" > 
                     Search with current location
-            </Button>
+            </Button> */}
             
           </div>
         </div>
         <Route
           path="/DataTable"
           render={props => (
-            <DataTable {...props} />
+            <DataTable {...props} city={this.state.city}/>
           )}
         />
       </div>
